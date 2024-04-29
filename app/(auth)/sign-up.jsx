@@ -16,7 +16,11 @@ const SignUp = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const submit = () => {
-    console.log("form submitted")
+    console.log({
+      fullname: form.fullname,
+      email: form.email,
+      password: form.password
+    })
   }
 
   return (
@@ -60,7 +64,7 @@ const SignUp = () => {
             <Text className="text-lg text-gray-800 font-pregular">
               Already have an account?
             </Text>
-            <Link href="/sign-in" className='text-lg text-secondary font-psemibold'>
+            <Link href="/sign-in" className='text-lg text-digiorange font-psemibold'>
               Log In
             </Link>
           </View>

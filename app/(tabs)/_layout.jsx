@@ -30,24 +30,39 @@ const TabsLayout = () => {
       screenOptions={{
         tabBarShowLabel: false,
         tabBarActiveTintColor: "#FFA001",
-        tabBarInactiveTintColor: "#CDCDE0",
+        tabBarInactiveTintColor: "#E5E5F7",
         tabBarStyle: {
-          backgroundColor: "#161622",
-          borderTopWidth: 1,
-          borderTopColor: '#232533',
+          backgroundColor: "#008A29",
+          borderTopWidth: 2,
+          borderTopColor: '#FFA001',
           height: 84
         }
       }}>
       <Tabs.Screen
-          name="home"
+          name="sampling"
           options={{
-            title: "Home",
+            title: "Sampling",
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.home}
+                icon={icons.plus}
                 color={color}
-                name="Home"
+                name="Sampling"
+                focused={focused}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="history"
+          options={{
+            title: "History",
+            headerShown: false,
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
+                icon={icons.bookmark}
+                color={color}
+                name="History"
                 focused={focused}
               />
             ),
@@ -60,24 +75,9 @@ const TabsLayout = () => {
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.bookmark}
+                icon={icons.home}
                 color={color}
                 name="Marketplace"
-                focused={focused}
-              />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="create"
-          options={{
-            title: "Create",
-            headerShown: false,
-            tabBarIcon: ({ color, focused }) => (
-              <TabIcon
-                icon={icons.plus}
-                color={color}
-                name="Create"
                 focused={focused}
               />
             ),
