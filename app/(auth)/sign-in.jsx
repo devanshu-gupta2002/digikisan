@@ -19,16 +19,16 @@ const SignIn = () => {
   }
 
   return (
-    <SafeAreaView className="bg-primary h-full">
+    <SafeAreaView className="bg-white h-full">
       <ScrollView>
         <View className="w-full min-h-[85vh] justify-center px-4 my-6">
           <Image 
             source={images.logo}
             resizeMode='contain'
-            className="w-[115px] h-[35px]"
+            className="w-[315px] h-[105px] mx-auto"
           />
-          <Text className="text-2xl text-white text-semibold mt-10 font-psemibold">
-            Login to DigiFarm
+          <Text className="text-2xl text-gray-900 text-semibold mt-10 font-psemibold">
+            Login to DigiKisan
           </Text>
           <FormField
           title="Email"
@@ -44,13 +44,13 @@ const SignIn = () => {
           otherStyles = "mt-7"
           />
           <CustomButton 
-            title="Sign In"
+            title="Log In"
             handlePress={submit}
             containerStyles="mt-7"
             isLoading={isSubmitting}
           />
           <View className="justify-center pt-5 flex-row gap-2">
-            <Text className="text-lg text-gray-100 font-pregular">
+            <Text className="text-lg text-gray-800 font-pregular">
               Don't have an account?
             </Text>
             <Link href="/sign-up" className='text-lg text-secondary font-psemibold'>
