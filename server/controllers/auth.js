@@ -10,14 +10,17 @@ export const register = async(req, res) => {
       password,
     } = req.body
     if(password.length<6){
-      response.status(400).json({ error: "Password length must be greater than 6"})
+      res.status(400).json({ error: "Password length must be greater than 6"})
+      return;
     }
     if(username.length<3){
-      response.status(400).json({ error: "Username length must be greater than 3"})
+      res.status(400).json({ error: "Username length must be greater than 3"})
+      return;
     }
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
     if(!emailPattern.test(email)) {
-      response.status(400).json({ error: "Invalid Email"})
+      res.status(400).json({ error: "Invalid Email"})
+      return;
     }
 
     const salt = await bcrypt.genSalt()
@@ -28,12 +31,15 @@ export const register = async(req, res) => {
       email,
       password: passwordHash,
     })
-
     const savedUser = await newUser.save()
     res.status(201).json(savedUser)
 
-  } catch (err) {
-    res.status(500).json({error: err.message})
+  } catch (error) {
+    if (error.code === 11000 && error.keyPattern.email) {
+      res.status(409).json({ error: 'Email already exists' });
+    } else {
+      res.status(500).json({ error: error });
+    }
   }
 }
 
