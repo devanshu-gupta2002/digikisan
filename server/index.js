@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors"
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import morgan from "morgan";
+import authRoutes from "./routes/auth.js";
 
 const app = express();
 dotenv.config();
@@ -30,7 +30,8 @@ app.use(requestLogger)
 // app.use(unknownEndpoint)
 
 //ROUTES
-app.use("/api",(req,res) => (res.send("Hello World")));
+app.use("/api", (req,res) => (res.send("Hello World")));
+app.use("/auth", authRoutes);
 
 const PORT = process.env.PORT
 
