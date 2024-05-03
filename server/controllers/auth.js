@@ -10,12 +10,16 @@ export const register = async(req, res) => {
       password,
     } = req.body
     if(password.length<6){
-      res.status(400).json({ error: "Password length must be greater than 6"})
-      return;
+      return res.status(400).json({ error: "Password length must be greater than 6"})
     }
     if(username.length<3){
-      res.status(400).json({ error: "Username length must be greater than 3"})
-      return;
+      return res.status(400).json({ error: "Username length must be greater than 3"})
+    }
+    const exist = await User.findOne({ email });
+    if (exist) {
+      return res.json({
+        error: "Email is taken",
+      });
     }
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
     if(!emailPattern.test(email)) {
@@ -35,11 +39,7 @@ export const register = async(req, res) => {
     res.status(201).json(savedUser)
 
   } catch (error) {
-    if (error.code === 11000 && error.keyPattern.email) {
-      res.status(409).json({ error: 'Email already exists' });
-    } else {
       res.status(500).json({ error: error });
-    }
   }
 }
 
