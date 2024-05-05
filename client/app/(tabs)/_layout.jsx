@@ -30,54 +30,54 @@ const TabsLayout = () => {
       screenOptions={{
         tabBarShowLabel: false,
         tabBarActiveTintColor: "#FFA001",
-        tabBarInactiveTintColor: "#CDCDE0",
+        tabBarInactiveTintColor: "#E5E5F7",
         tabBarStyle: {
-          backgroundColor: "#161622",
-          borderTopWidth: 1,
-          borderTopColor: '#232533',
+          backgroundColor: "#008A29",
+          borderTopWidth: 2,
+          borderTopColor: '#FFA001',
           height: 84
         }
       }}>
       <Tabs.Screen
-          name="home"
+          name="sampling"
           options={{
-            title: "Home",
-            headerShown: false,
-            tabBarIcon: ({ color, focused }) => (
-              <TabIcon
-                icon={icons.home}
-                color={color}
-                name="Home"
-                focused={focused}
-              />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="bookmark"
-          options={{
-            title: "Bookmark",
-            headerShown: false,
-            tabBarIcon: ({ color, focused }) => (
-              <TabIcon
-                icon={icons.bookmark}
-                color={color}
-                name="Bookmark"
-                focused={focused}
-              />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="create"
-          options={{
-            title: "Create",
+            title: "Sampling",
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
                 icon={icons.plus}
                 color={color}
-                name="Create"
+                name="Sampling"
+                focused={focused}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="history"
+          options={{
+            title: "History",
+            headerShown: false,
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
+                icon={icons.bookmark}
+                color={color}
+                name="History"
+                focused={focused}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="marketplace"
+          options={{
+            title: "Marketplace",
+            headerShown: false,
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
+                icon={icons.home}
+                color={color}
+                name="Marketplace"
                 focused={focused}
               />
             ),
