@@ -26,7 +26,7 @@ const SignUp = () => {
   setIsSubmitting(true);
 
   try {
-      const resp = await axios.post("http://192.168.19.76:8081/auth/register", {
+      const resp = await axios.post("https://digikisan-production.up.railway.app/auth/register", {
         username: form.fullname,
         email: form.email,
         password: form.password

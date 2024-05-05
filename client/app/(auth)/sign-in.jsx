@@ -24,7 +24,7 @@ const SignIn = () => {
     setIsSubmitting(true);
 
     try {
-        const resp = await axios.post("http://192.168.19.76:8081/auth/login", {
+        const resp = await axios.post("https://digikisan-production.up.railway.app/auth/login", {
           email: form.email,
           password: form.password
         });
