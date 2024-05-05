@@ -1,11 +1,13 @@
 import { View, Text, ScrollView, Image, Alert } from 'react-native'
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {images} from "../../constants"
 import FormField from '../../components/FormField';
 import CustomButton from '../../components/CustomButton'
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 import axios from "axios"
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import { AuthContext } from '../../context/auth.js';
 
 const SignUp = () => {
 
@@ -15,6 +17,7 @@ const SignUp = () => {
     password: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [state, setState] = useContext(AuthContext)
 
   const submit = async () => {
     console.log({
@@ -52,7 +55,20 @@ const SignUp = () => {
         email: form.email.trim(),
         password: form.password
       });
+      
+      console.log("signup response", resp.data)
+
+    const signInResp = await axios.post("https://digikisan-production.up.railway.app/auth/login", {
+        email: form.email.trim(),
+        password: form.password
+      });
+
+      console.log("login response", signInResp.data)
+      setState(signInResp.data);
+      await AsyncStorage.setItem("user-data", JSON.stringify(signInResp.data));
       Alert.alert("Registration successful");
+      router.replace("/sampling")
+
     } catch (error) {    
       Alert.alert(error.response.data.msg);
     } finally {
