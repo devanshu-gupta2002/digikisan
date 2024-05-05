@@ -5,6 +5,7 @@ import {images} from "../../constants"
 import FormField from '../../components/FormField';
 import CustomButton from '../../components/CustomButton'
 import { Link } from 'expo-router';
+import axios from "axios"
 
 const SignIn = () => {
 
@@ -14,11 +15,27 @@ const SignIn = () => {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const submit = () => {
+  const submit = async () => {
     console.log({
       email: form.email,
       password: form.password
     })
+
+    setIsSubmitting(true);
+
+    try {
+        const resp = await axios.post("http://192.168.19.76:8081/auth/login", {
+          email: form.email,
+          password: form.password
+        });
+        console.log(resp.data)
+        alert("Login successful. Welcome back!");
+      } catch (error) {    
+        console.error("Registration failed:", error);
+        alert("Registration failed. Please try again.");
+      } finally {
+        setIsSubmitting(false);
+      }
   }
 
   return (
