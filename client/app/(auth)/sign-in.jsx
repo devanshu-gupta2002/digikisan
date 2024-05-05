@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Image } from 'react-native'
+import { View, Text, ScrollView, Image, Alert } from 'react-native'
 import React, {useState} from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {images} from "../../constants"
@@ -21,6 +21,11 @@ const SignIn = () => {
       password: form.password
     })
 
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
+    if(!emailPattern.test(form.email)) {
+      Alert.alert("Invalid Email")
+      return;
+    }
     setIsSubmitting(true);
 
     try {
@@ -29,10 +34,9 @@ const SignIn = () => {
           password: form.password
         });
         console.log(resp.data)
-        alert("Login successful. Welcome back!");
-      } catch (error) {    
-        console.error("Registration failed:", error);
-        alert("Registration failed. Please try again.");
+        Alert.alert("Login successful. Welcome back!");
+      } catch (error) {
+        Alert.alert(error.response.data.msg);
       } finally {
         setIsSubmitting(false);
       }

@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Image } from 'react-native'
+import { View, Text, ScrollView, Image, Alert } from 'react-native'
 import React, {useState} from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {images} from "../../constants"
@@ -23,19 +23,38 @@ const SignUp = () => {
       password: form.password
     })
 
-  setIsSubmitting(true);
+    if(!form.fullname || !form.email || !form.password) {
+      Alert.alert("Please fill all fields")
+      return;
+    }
+
+    if(form.password.length<6){
+      Alert.alert("Password length must be greater than 6")
+      return;
+    }
+
+    if(form.fullname.trim().length<3){
+      Alert.alert("Username length must be greater than 3")
+      return;
+    }
+
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
+    if(!emailPattern.test(form.email)) {
+      Alert.alert("Invalid Email")
+      return;
+    }
+
+    setIsSubmitting(true);
 
   try {
       const resp = await axios.post("https://digikisan-production.up.railway.app/auth/register", {
-        username: form.fullname,
-        email: form.email,
+        username: form.fullname.trim(),
+        email: form.email.trim(),
         password: form.password
       });
-      console.log(resp.data)
-      alert("Registration successful. Please login to continue.");
+      Alert.alert("Registration successful");
     } catch (error) {    
-      console.error("Registration failed:", error);
-      alert("Registration failed. Please try again.");
+      Alert.alert(error.response.data.msg);
     } finally {
       setIsSubmitting(false);
     }
