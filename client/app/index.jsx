@@ -4,8 +4,15 @@ import { Redirect, router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {images} from "../constants"
 import CustomButton from '../components/CustomButton';
+import { useAuthContext } from '../context/auth.js';
 
 export default function App() {
+  const {isLogged} = useAuthContext();
+  console.log("isLogged", isLogged)
+  if(isLogged) {
+    return <Redirect href="/sampling" />
+  }
+
   return (
     <SafeAreaView className="bg-white h-full">
       <ScrollView contentContainerStyle={{height: '100%'}}>
