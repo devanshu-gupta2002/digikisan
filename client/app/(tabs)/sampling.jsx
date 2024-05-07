@@ -1,9 +1,9 @@
 import { View, Text } from 'react-native'
 import React, {useState, useContext} from 'react'
-import { AuthContext } from '../../context/auth'
+import { useAuthContext } from '../../context/auth'
 
 const Sampling = () => {
-  const [state, setState] = useContext(AuthContext)
+  const {state, setState} = useAuthContext()
   console.log("state", state)
 
   return (
