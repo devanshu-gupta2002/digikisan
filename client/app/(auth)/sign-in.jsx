@@ -7,7 +7,7 @@ import CustomButton from '../../components/CustomButton'
 import { Link, router } from 'expo-router';
 import axios from "axios"
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { AuthContext } from '../../context/auth.js';
+import { useAuthContext } from '../../context/auth.js';
 
 const SignIn = () => {
 
@@ -17,7 +17,7 @@ const SignIn = () => {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   // console.log("state", useContext(AuthContext))
-  const {state, setState, isLogged, setIsLogged} = useContext(AuthContext)
+  const {state, setState, isLogged, setIsLogged} = useAuthContext()
 
   const submit = async () => {
     console.log({
