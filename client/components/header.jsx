@@ -18,25 +18,31 @@ const TabIcon = ({ icon, color}) => {
 };
 
 const handleLogoClick = () => {
-  router.replace("/screens/profile")
+  router.replace("/sampling")
+}
+
+const handleProfileClick = () => {
+  router.push("/profile")
 }
 
 const Header = () => {
   return (
     <View className="flex w-full h-[80px] bg-white items-center justify-between flex-row">
     <TouchableOpacity onPress={handleLogoClick}>
-    <Image 
-      source={images.logo}
-      resizeMode='contain'
-      className="w-[200px] h-[100px] ml-1 mt-3"
-    />
-    </TouchableOpacity>
-    <View className="w-10 h-12 flex items-center justify-center rounded-full bg-[#008A29] mr-4">
-      <TabIcon
-        icon={icons.profile}
-        color={"#E5E5F7"}
+      <Image 
+        source={images.logo}
+        resizeMode='contain'
+        className="w-[200px] h-[100px] ml-1 mt-3"
       />
-    </View>
+    </TouchableOpacity>
+    <TouchableOpacity onPress={handleProfileClick}>
+      <View className="w-10 h-12 flex items-center justify-center rounded-full bg-[#008A29] mr-4">
+        <TabIcon
+          icon={icons.profile}
+          color={"#E5E5F7"}
+        />
+      </View>
+    </TouchableOpacity>
   </View>
   )
 }

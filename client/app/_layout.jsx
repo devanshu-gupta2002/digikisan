@@ -43,7 +43,7 @@ const RootLayout = () => {
         <Stack.Screen name="(tabs)" options={{
           headerShown: false
         }} />
-        <Stack.Screen name='screens' options={{
+        <Stack.Screen name='(screens)' options={{
           headerShown: false
         }} />
       </Stack>
