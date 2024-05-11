@@ -18,7 +18,7 @@ const TabIcon = ({ icon, color}) => {
 };
 
 const handleLogoClick = () => {
-  router.replace("/Profile")
+  router.replace("/screens/profile")
 }
 
 const Header = () => {
