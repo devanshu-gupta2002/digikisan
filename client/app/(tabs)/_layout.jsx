@@ -1,4 +1,4 @@
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, StatusBar } from 'react-native'
 import React from 'react'
 import { Tabs, Redirect } from 'expo-router'
 
@@ -26,6 +26,10 @@ const TabIcon = ({ icon, color, name, focused }) => {
 const TabsLayout = () => {
   return (
     <>
+      <StatusBar
+        animated={true}
+        backgroundColor="#FFFFFF"
+      />
       <Tabs
       screenOptions={{
         tabBarShowLabel: false,

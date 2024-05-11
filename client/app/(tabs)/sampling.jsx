@@ -9,7 +9,7 @@ const Sampling = () => {
   console.log("state", state)
 
   return (
-    <SafeAreaView className="flex bg-primary w-full h-full">
+    <SafeAreaView className="flex bg-gray-300 w-full h-full">
       <Header />
       <Text>Sampling</Text>
     </SafeAreaView>
