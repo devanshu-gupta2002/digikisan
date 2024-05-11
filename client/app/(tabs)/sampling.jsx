@@ -1,5 +1,5 @@
 import { View, Text } from 'react-native'
-import React, {useState, useContext} from 'react'
+import React from 'react'
 import { useAuthContext } from '../../context/auth'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Header from '../../components/header'

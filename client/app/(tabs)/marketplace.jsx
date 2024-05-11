@@ -1,19 +1,18 @@
-import { View, Text, TouchableOpacity } from 'react-native'
-import React, {useState, useContext} from 'react'
-import { useAuthContext } from '../../context/auth';
-import { router } from 'expo-router';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { View, Text } from 'react-native'
+import React from 'react'
+import { useAuthContext } from '../../context/auth'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import Header from '../../components/header'
 
 const Marketplace = () => {
-
-  const {state, setState, isLogged, setIsLogged} = useAuthContext()
-
-  // logout();
+  // const {state, setState} = useAuthContext()
+  // console.log("state", state)
 
   return (
-    <View>
-      <Text>MarketPlace</Text>
-    </View>
+    <SafeAreaView className="flex bg-gray-300 w-full h-full">
+      <Header />
+      <Text>Marketplace</Text>
+    </SafeAreaView>
   )
 }
 
