@@ -17,7 +17,7 @@ const SignUp = () => {
     password: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const {state, setState, setLogged, setisLogged} = useAuthContext()
+  const {state, setState, setLogged, setIsLogged} = useAuthContext()
 
   const submit = async () => {
     console.log({
@@ -65,13 +65,15 @@ const SignUp = () => {
 
       console.log("login response", signInResp.data)
       setState(signInResp.data);
-      setisLogged(true);
-      await AsyncStorage.setItem("user-data", JSON.stringify(signInResp.data));
+      setIsLogged(true);
+      const storage = await AsyncStorage.setItem("user-data", JSON.stringify(signInResp.data));
+      console.log("storage", storage)
       Alert.alert("Registration successful");
       router.replace("/sampling")
 
-    } catch (error) {    
-      Alert.alert(error.response.data.msg);
+    } catch (error) {
+      console.log("error", error)
+      Alert.alert(error);
     } finally {
       setIsSubmitting(false);
     }

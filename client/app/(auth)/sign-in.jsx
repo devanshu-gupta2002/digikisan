@@ -45,6 +45,7 @@ const SignIn = () => {
         Alert.alert("Login successful. Welcome back!");
         router.replace("/sampling")
       } catch (error) {
+        console.log("error", error.response.data.msg)
         Alert.alert(error.response.data.msg);
       } finally {
         setIsSubmitting(false);
