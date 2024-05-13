@@ -4,10 +4,18 @@ import { useAuthContext } from '../../context/auth.js'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { router } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import IsLogged from '../../components/IsLogged.jsx';
 
 const Profile = () => {
   const {state, setState, isLogged, setIsLogged} = useAuthContext()
   console.log("state", state)
+  if(state.user === null) {
+    return (
+      <SafeAreaView className="flex bg-gray-300 w-full h-full">
+      <IsLogged />
+    </SafeAreaView>
+    )
+  }
   
   const logout = async () => {
     setState(null);
