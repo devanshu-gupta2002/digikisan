@@ -10,7 +10,7 @@ export default function App() {
   const {isLogged} = useAuthContext();
   console.log("isLogged", isLogged)
   if(isLogged) {
-    return <Redirect href="/sampling" />
+    return <Redirect href="/tabs/sampling" />
   }
 
   return (
@@ -22,19 +22,14 @@ export default function App() {
             className="w-[380px] h-[300px]"
             resizeMode='contain'
           />
-          {/* <Image
-            source={images.cards}
-            className="max-w-[380px] w-full h-[300px]"
-            resizeMode='contain'
-          /> */}
           <CustomButton 
             title="Continue with Email"
-            handlePress={() => router.push('/sign-in')}
+            handlePress={() => router.navigate('/auth/sign-in')}
             containerStyles="w-full mt-7"
           />
           <CustomButton 
             title="Explore Marketplace"
-            handlePress={() => router.push('/marketplace')}
+            handlePress={() => router.navigate('/tabs/marketplace')}
             containerStyles="w-full mt-7 bg-[#FF9001]"
           />
         </View>
