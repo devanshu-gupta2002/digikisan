@@ -37,13 +37,13 @@ const RootLayout = () => {
         <Stack.Screen name="index" options={{
           headerShown: false
         }} />
-        <Stack.Screen name="(auth)" options={{
+        <Stack.Screen name="auth" options={{
           headerShown: false
         }} />
-        <Stack.Screen name="(tabs)" options={{
+        <Stack.Screen name="tabs" options={{
           headerShown: false
         }} />
-        <Stack.Screen name='(screens)' options={{
+        <Stack.Screen name='screens' options={{
           headerShown: false
         }} />
       </Stack>

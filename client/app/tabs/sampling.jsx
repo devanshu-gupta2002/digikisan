@@ -9,11 +9,11 @@ import IsLogged from '../../components/IsLogged'
 const Sampling = () => {
   const {state, setState} = useAuthContext()
   const useRouterStack = useRouter()
-  useEffect(() => {
-    if(useRouterStack.canDismiss()) {
-      useRouterStack.dismissAll()
-    }
-  }, [])
+  // useEffect(() => {
+  //   if(useRouterStack.canDismiss()) {
+  //     useRouterStack.dismissAll()
+  //   }
+  // }, [])
   console.log("sampling page")
   if(state.user === null) {
     return (

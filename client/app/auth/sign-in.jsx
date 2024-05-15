@@ -38,16 +38,19 @@ const SignIn = () => {
           email: form.email,
           password: form.password
         });
-
+        if(resp.data.error) {
+          throw new Error(resp.data.error)
+        }
         console.log("signin response", resp.data)
         setState(resp.data)
         setIsLogged(true)
         await AsyncStorage.setItem("user-data", JSON.stringify(resp.data));
         Alert.alert("Login successful. Welcome back!");
-        router.replace("/sampling")
+        router.navigate("/tabs/sampling")
         useRouterStack.dismissAll()
       } catch (error) {
-        console.log("error", error.response.data.msg)
+        console.log("error", error)
+        console.log("error response", error.response.data.msg)
         Alert.alert(error.response.data.msg);
       } finally {
         setIsSubmitting(false);
@@ -89,7 +92,7 @@ const SignIn = () => {
             <Text className="text-lg text-gray-800 font-pregular">
               Don't have an account?
             </Text>
-            <Link href="/sign-up" className='text-lg text-digiorange font-psemibold'>
+            <Link href="/auth/sign-up" className='text-lg text-digiorange font-psemibold'>
               Sign Up
             </Link>
           </View>

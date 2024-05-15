@@ -20,7 +20,7 @@ const IsLogged = () => {
       </Text>
       <CustomButton
         title="Login to continue"
-        handlePress={() => router.push('/sign-in')}
+        handlePress={() => router.push('/auth/sign-in')}
         containerStyles="w-1/2 mt-7 bg-[#FF9001]"
       />
     </View>

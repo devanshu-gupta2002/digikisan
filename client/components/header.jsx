@@ -18,11 +18,11 @@ const TabIcon = ({ icon, color}) => {
 };
 
 const handleLogoClick = () => {
-  router.replace("/sampling")
+  router.replace("/tabs/sampling")
 }
 
 const handleProfileClick = () => {
-  router.push("/profile")
+  router.push("/screens/profile")
 }
 
 const Header = () => {

@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import React, {useContext} from 'react'
 import { useAuthContext } from '../../context/auth.js'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { router } from 'expo-router';
+import { Redirect, router } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import IsLogged from '../../components/IsLogged.jsx';
 
@@ -25,7 +25,8 @@ const Profile = () => {
     });
     setIsLogged(false);
     await AsyncStorage.removeItem("user-data");
-    router.replace("/sign-in");
+    // <Redirect href="/sign-in" />;
+    router.replace("/auth/sign-in")
   };
 
   return (
