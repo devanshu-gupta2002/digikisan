@@ -4,13 +4,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import {images} from "../../constants"
 import FormField from '../../components/FormField';
 import CustomButton from '../../components/CustomButton'
-import { Link, router } from 'expo-router';
+import { Link, router, useRouter } from 'expo-router';
 import axios from "axios"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAuthContext } from '../../context/auth.js';
 
 const SignIn = () => {
 
+  const useRouterStack = useRouter()
   const [form, setForm] = useState({
     email: '',
     password: ''
@@ -44,6 +45,7 @@ const SignIn = () => {
         await AsyncStorage.setItem("user-data", JSON.stringify(resp.data));
         Alert.alert("Login successful. Welcome back!");
         router.replace("/sampling")
+        useRouterStack.dismissAll()
       } catch (error) {
         console.log("error", error.response.data.msg)
         Alert.alert(error.response.data.msg);

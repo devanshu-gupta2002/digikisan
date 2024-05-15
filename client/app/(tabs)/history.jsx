@@ -8,7 +8,7 @@ import IsLogged from '../../components/IsLogged'
 
 const History = () => {
   const {state, setState} = useAuthContext()
-  console.log("state", state)
+  console.log("history page")
   if(state.user === null) {
     return (
       <SafeAreaView className="flex bg-gray-300 w-full h-full">

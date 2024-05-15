@@ -8,7 +8,8 @@ import IsLogged from '../../components/IsLogged.jsx';
 
 const Profile = () => {
   const {state, setState, isLogged, setIsLogged} = useAuthContext()
-  console.log("state", state)
+  console.log("profile page")
+  console.log(state)
   if(state.user === null) {
     return (
       <SafeAreaView className="flex bg-gray-300 w-full h-full">
@@ -18,7 +19,10 @@ const Profile = () => {
   }
   
   const logout = async () => {
-    setState(null);
+    setState({
+      "token": "",
+      "user": null
+    });
     setIsLogged(false);
     await AsyncStorage.removeItem("user-data");
     router.replace("/sign-in");

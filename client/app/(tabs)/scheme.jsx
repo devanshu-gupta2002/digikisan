@@ -8,15 +8,7 @@ import IsLogged from '../../components/IsLogged';
 
 const Scheme = () => {
   const {state, setState} = useAuthContext()
-  console.log("state", state)
-  // if(state.user === null) {
-  //   return (
-  //     <SafeAreaView className="flex bg-gray-300 w-full h-full">
-  //     <Header />
-  //     <IsLogged />
-  //   </SafeAreaView>
-  //   )
-  // }
+  console.log("scheme page")
 
   return (
     <SafeAreaView className="flex bg-gray-300 w-full h-full">

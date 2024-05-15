@@ -7,7 +7,7 @@ import { router } from 'expo-router'
 
 const Marketplace = () => {
   const {state, setState} = useAuthContext()
-
+  console.log("marketplace")
 
   return (
     <SafeAreaView className="flex bg-gray-300 w-full h-full">
