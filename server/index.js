@@ -3,6 +3,7 @@ import cors from "cors"
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import authRoutes from "./routes/auth.js";
+import userRoutes from "./routes/user.js";
 
 const app = express();
 dotenv.config();
@@ -32,6 +33,7 @@ app.use(requestLogger)
 //ROUTES
 app.use("/api", (req,res) => (res.send("Hello World")));
 app.use("/auth", authRoutes);
+app.use("/user", userRoutes)
 
 const PORT = process.env.PORT
 
