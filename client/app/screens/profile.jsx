@@ -1,33 +1,27 @@
-import { View, Text, TextInput, Image } from 'react-native';
 import React, { useState } from 'react';
-import { useAuthContext } from '../../context/auth.js';
+import { View, Text, TextInput, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { router } from 'expo-router';
+import { useAuthContext } from '../../context/auth.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import IsLogged from '../../components/IsLogged.jsx';
 import CustomButton from '../../components/CustomButton.jsx';
 import images from '../../constants/images.js';
+import { editDetails } from '../../services/user.js';
+import { router } from 'expo-router';
 
 const Profile = () => {
   const { state, setState, isLogged, setIsLogged } = useAuthContext();
+  console.log('state', state);
+  
+  const userAddress = state.user?.address ? state.user.address : "{\"streetAddress\":\"\",\"city\":\"\",\"state\":\"\"}";
+  const parsedAddress = JSON.parse(userAddress)  
   const [fullName, setFullName] = useState(state.user?.username || "");
   const [email, setEmail] = useState(state.user?.email || "");
-  const [phone, setPhone] = useState(state.user?.phone || "");
-  const [streetAddress, setStreetAddress] = useState(state.user?.address?.street || "");
-  const [city, setCity] = useState(state.user?.address?.city || "");
-  const [stateAddr, setStateAddr] = useState(state.user?.address?.state || "");
+  const [phone, setPhone] = useState(state.user?.phone?.toString() || "");
+  const [streetAddress, setStreetAddress] = useState(parsedAddress.streetAddress || "");
+  const [city, setCity] = useState(parsedAddress.city || "");
+  const [stateAddr, setStateAddr] = useState(parsedAddress.state || "");
   const [isEditing, setIsEditing] = useState(false);
-
-  console.log("profile page");
-  console.log(state);
-
-  if (state.user === null) {
-    return (
-      <SafeAreaView className="flex bg-gray-300 w-full h-full">
-        <IsLogged />
-      </SafeAreaView>
-    );
-  }
 
   const logout = async () => {
     setState({
@@ -42,6 +36,38 @@ const Profile = () => {
   const toggleEdit = () => {
     setIsEditing(!isEditing);
   };
+
+  const saveDetails = async () => {
+    const newDetails = {
+      username: fullName,
+      email,
+      phone: parseInt(phone, 10),
+      address: {
+        streetAddress,
+        city,
+        state: stateAddr
+      }
+    };
+  
+    try {
+      // Call editDetails function passing newDetails, state, and setState
+      const updatedUser = await editDetails(newDetails, state, setState);
+  
+      // Update the local state with the updated user details
+      setFullName(updatedUser.username);
+      setEmail(updatedUser.email);
+      setPhone(updatedUser.phone?.toString() || "");
+      const updatedAddress = JSON.parse(updatedUser.address);
+      setStreetAddress(updatedAddress.streetAddress || "");
+      setCity(updatedAddress.city || "");
+      setStateAddr(updatedAddress.state || "");
+      setIsEditing(false);
+    } catch (error) {
+      console.error('Error saving details:', error);
+    }
+  };
+  
+  
 
   const renderEditableField = (label, value, setValue, placeholder, keyboardType = 'default') => (
     <View className="w-full p-3 mb-4 bg-white rounded-2xl border border-digiorange relative">
@@ -100,7 +126,7 @@ const Profile = () => {
 
           <CustomButton 
             title={isEditing ? "Save Details" : "Edit Details"}
-            handlePress={toggleEdit}
+            handlePress={isEditing ? saveDetails : toggleEdit}
             containerStyles="mt-7 w-1/2"
           />
           <CustomButton 
