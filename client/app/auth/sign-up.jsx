@@ -1,84 +1,28 @@
 import { View, Text, ScrollView, Image, Alert } from 'react-native'
-import React, {useState, useContext} from 'react'
+import React, { useState, useContext } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {images} from "../../constants/index.js"
+import { images } from "../../constants/index.js"
 import FormField from '../../components/FormField.jsx';
 import CustomButton from '../../components/CustomButton.jsx'
 import { Link, router } from 'expo-router';
-import axios from "axios"
-import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useAuthContext } from '../../context/auth.js';
+import { submitSignUp } from '../../services/signUp.js';
 
 const SignUp = () => {
-
   const [form, setForm] = useState({
     fullname: '',
     email: '',
     password: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const {state, setState, setLogged, setIsLogged} = useAuthContext()
+  const { state, setState, setLogged, setIsLogged } = useAuthContext()
 
-  const submit = async () => {
-    console.log({
-      fullname: form.fullname,
-      email: form.email,
-      password: form.password
-    })
-
-    if(!form.fullname || !form.email || !form.password) {
-      Alert.alert("Please fill all fields")
-      return;
-    }
-
-    if(form.password.length<6){
-      Alert.alert("Password length must be greater than 6")
-      return;
-    }
-
-    if(form.fullname.trim().length<3){
-      Alert.alert("Username length must be greater than 3")
-      return;
-    }
-
-    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
-    if(!emailPattern.test(form.email)) {
-      Alert.alert("Invalid Email")
-      return;
-    }
-
-    setIsSubmitting(true);
-
-  try {
-      const resp = await axios.post("https://digikisan-production.up.railway.app/auth/register", {
-        username: form.fullname.trim(),
-        email: form.email.trim(),
-        password: form.password
-      });
-      if(resp.data.error) {
-        throw new Error(resp.data.error)
-      }
-      console.log("signup response", resp.data)
-
-    // const signInResp = await axios.post("https://digikisan-production.up.railway.app/auth/login", {
-    //     email: form.email.trim(),
-    //     password: form.password
-    //   });
-
-    //   console.log("login response", signInResp.data)
-    //   setState(signInResp.data);
-    //   setIsLogged(true);
-    //   const storage = await AsyncStorage.setItem("user-data", JSON.stringify(signInResp.data));
-    //   console.log("storage", storage)
-      Alert.alert("Registration successful, Sign in to continue!");
-      router.replace("/auth/sign-in")
-
+  const handleSubmit = async () => {
+    try {
+      await submitSignUp(form, setIsSubmitting);
     } catch (error) {
       console.log("error", error)
-      console.log("error response", error.response.data.msg)
       Alert.alert(error.response.data.msg);
-    } finally {
-      setIsSubmitting(false);
     }
   }
 
@@ -86,7 +30,7 @@ const SignUp = () => {
     <SafeAreaView className="bg-white h-full">
       <ScrollView>
         <View className="w-full min-h-[85vh] justify-center px-4 my-6">
-          <Image 
+          <Image
             source={images.logo}
             resizeMode='contain'
             className="w-[315px] h-[105px] mx-auto"
@@ -95,27 +39,27 @@ const SignUp = () => {
             Sign Up to DigiKisan
           </Text>
           <FormField
-          title="Full Name"
-          value={form.fullname}
-          handleChangeText={(e) => setForm({...form, fullname: e})}
-          otherStyles = "mt-7"
+            title="Full Name"
+            value={form.fullname}
+            handleChangeText={(e) => setForm({ ...form, fullname: e })}
+            otherStyles="mt-7"
           />
           <FormField
-          title="Email"
-          value={form.email}
-          handleChangeText={(e) => setForm({...form, email: e})}
-          otherStyles = "mt-5"
-          keyboardType="email-address"
+            title="Email"
+            value={form.email}
+            handleChangeText={(e) => setForm({ ...form, email: e })}
+            otherStyles="mt-5"
+            keyboardType="email-address"
           />
           <FormField
-          title="Password"
-          value={form.password}
-          handleChangeText={(e) => setForm({...form, password: e})}
-          otherStyles = "mt-5"
+            title="Password"
+            value={form.password}
+            handleChangeText={(e) => setForm({ ...form, password: e })}
+            otherStyles="mt-5"
           />
-          <CustomButton 
+          <CustomButton
             title="Sign Up"
-            handlePress={submit}
+            handlePress={handleSubmit}
             containerStyles="mt-7"
             isLoading={isSubmitting}
           />
