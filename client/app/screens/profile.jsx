@@ -17,7 +17,7 @@ const Profile = () => {
   const parsedAddress = JSON.parse(userAddress)  
   const [fullName, setFullName] = useState(state.user?.username || "");
   const [email, setEmail] = useState(state.user?.email || "");
-  const [phone, setPhone] = useState(state.user?.phone?.toString() || "");
+  const [phone, setPhone] = useState(state.user?.phone || "");
   const [streetAddress, setStreetAddress] = useState(parsedAddress.streetAddress || "");
   const [city, setCity] = useState(parsedAddress.city || "");
   const [stateAddr, setStateAddr] = useState(parsedAddress.state || "");
@@ -41,7 +41,7 @@ const Profile = () => {
     const newDetails = {
       username: fullName,
       email,
-      phone: parseInt(phone, 10),
+      phone: phone,
       address: {
         streetAddress,
         city,
